@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
 	Table,
@@ -21,6 +22,8 @@ import {
 	type SortingState,
 	type VisibilityState
 } from '@tanstack/react-table'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 import { DataTablePagination } from './data-table-pagination'
 import { DataTableViewOptions } from './data-table-view-options'
@@ -41,6 +44,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
 	const key = searchKey as string // Aseguramos que searchKey sea un string para usarlo en el Input
 
+	const pathname = usePathname()
 	const [sorting, setSorting] = React.useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
 		[]
@@ -73,7 +77,7 @@ export function DataTable<TData, TValue>({
 	return (
 		<div>
 			<div>
-				<div className='flex justify-center items-center py-4'>
+				<div className='flex justify-between items-center gap-4 py-4'>
 					<Input
 						className='max-w-xs'
 						placeholder={`Filtrar por ${key}...`}
@@ -82,13 +86,19 @@ export function DataTable<TData, TValue>({
 							table.getColumn(key)?.setFilterValue(event.target.value)
 						}
 					/>
-					<DataTableViewOptions table={table} />
+					<Button asChild>
+						<Link href={`${pathname}/nuevo`}>Nuevo</Link>
+					</Button>
 				</div>
-				<div className='flex-1 text-muted-foreground text-sm'>
-					{table.getFilteredSelectedRowModel().rows.length} de{' '}
-					{table.getFilteredRowModel().rows.length} registro
-					{table.getFilteredRowModel().rows.length > 1 ? 's' : null}{' '}
-					seleccionado.
+
+				<div className='flex justify-center items-center py-4'>
+					<div className='flex-1 text-muted-foreground text-sm'>
+						{table.getFilteredSelectedRowModel().rows.length} de{' '}
+						{table.getFilteredRowModel().rows.length} registro
+						{table.getFilteredRowModel().rows.length > 1 ? 's' : null}{' '}
+						seleccionado.
+					</div>
+					<DataTableViewOptions table={table} />
 				</div>
 			</div>
 			<div className='border border-border rounded-sm overflow-x-auto'>

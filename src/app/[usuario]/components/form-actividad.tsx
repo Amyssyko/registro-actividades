@@ -85,14 +85,19 @@ export const frecuencia: Frecuencia[] = [
 type ActividadFormProps = {
 	usuario: string
 	className?: string
+	initialValues?: ActividadFormType
 } & React.ComponentProps<'div'>
 
-const FormActividad: FC<ActividadFormProps> = ({ className, ...props }) => {
+const FormActividad: FC<ActividadFormProps> = ({
+	className,
+	initialValues,
+	...props
+}) => {
 	const { push, refresh } = useRouter()
 
 	const form = useForm<ActividadFormType>({
 		resolver: zodResolver(actividadFormSchema),
-		defaultValues: {
+		defaultValues: initialValues || {
 			id: '',
 			nombre_responsable: '',
 			prioridad: undefined,

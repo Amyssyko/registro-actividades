@@ -1,9 +1,14 @@
+import React from 'react'
 import { z } from 'zod/v4'
 
-export type Params = {
-	pathname: string
+export type PageProps = {
 	params: Promise<{ usuario: string }>
-	searchParams: Promise<Readonly<Record<string, string | string[]>>>
+	searchParams?: Promise<Readonly<Record<string, string | string[]>>>
+}
+
+export type LayoutProps = PageProps & {
+	pathname: string
+	children: React.ReactNode
 }
 
 export enum Prioridad {
@@ -76,6 +81,23 @@ export type ActividadType = {
 	fecha_fin: Date
 }
 
+export const usuarios: UsuarioType[] = [
+	{ id: '1', nombre_usuario: 'Juan Pérez' },
+	{ id: '2', nombre_usuario: 'María López' },
+	{ id: '3', nombre_usuario: 'Pedro Martínez' },
+	{ id: '4', nombre_usuario: 'Lucía Sánchez' },
+	{ id: '5', nombre_usuario: 'Andrés Gómez' },
+	{ id: '6', nombre_usuario: 'Clara Ruiz' },
+	{ id: '7', nombre_usuario: 'Diego Fernández' },
+	{ id: '8', nombre_usuario: 'Sara López' },
+	{ id: '9', nombre_usuario: 'David Martínez' },
+	{ id: '10', nombre_usuario: 'Laura Torres' },
+	{ id: '11', nombre_usuario: 'Carlos Pilla' },
+	{ id: '12', nombre_usuario: 'Ana Gómez' },
+	{ id: '13', nombre_usuario: 'Isabel Martínez' },
+	{ id: '14', nombre_usuario: 'Fernando Gómez' }
+]
+
 export const datos: ActividadFormType[] = [
 	{
 		id: '1',
@@ -87,10 +109,10 @@ export const datos: ActividadFormType[] = [
 		descripcion: 'Reunión semanal para revisar el progreso del proyecto',
 		usuario_experto: 'Ana Gómez',
 		nombre_area: 'Desarrollo',
-		fecha_inicio: new Date('2023-10-01T10:00:00Z'),
-		fecha_fin: new Date('2023-10-01T11:00:00Z'),
-		fecha_creacion: new Date('2023-09-25T10:00:00Z'),
-		fecha_actualizacion: new Date('2023-09-26T10:00	:00Z')
+		fecha_inicio: new Date('2025-06-01T10:00:00Z'),
+		fecha_fin: new Date('2025-06-01T11:00:00Z'),
+		fecha_creacion: new Date('2025-09-25T10:00:00Z'),
+		fecha_actualizacion: new Date('2025-09-26T10:00	:00Z')
 	},
 	{
 		id: '2',
@@ -102,10 +124,10 @@ export const datos: ActividadFormType[] = [
 		descripcion: 'Implementación de nuevas características en la aplicación',
 		usuario_experto: 'Carlos Ruiz',
 		nombre_area: 'Desarrollo',
-		fecha_inicio: new Date('2023-10-02T09:00:00Z'),
-		fecha_fin: new Date('2023-10-02T17:00:00Z'),
-		fecha_creacion: new Date('2023-09-26T09:00:00Z'),
-		fecha_actualizacion: new Date('2023-09-27T09:00:00Z')
+		fecha_inicio: new Date('2025-06-02T09:00:00Z'),
+		fecha_fin: new Date('2025-06-02T17:00:00Z'),
+		fecha_creacion: new Date('2025-09-26T09:00:00Z'),
+		fecha_actualizacion: new Date('2025-09-27T09:00:00Z')
 	},
 	{
 		id: '3',
@@ -117,10 +139,10 @@ export const datos: ActividadFormType[] = [
 		descripcion: 'Análisis y mejora del código existente',
 		usuario_experto: 'Laura Fernández',
 		nombre_area: 'Calidad',
-		fecha_inicio: new Date('2023-10-03T08:00:00Z'),
-		fecha_fin: new Date('2023-10-03T12:00:00Z'),
-		fecha_creacion: new Date('2023-09-27T08:00:00Z'),
-		fecha_actualizacion: new Date('2023-09-28T08:00:00Z')
+		fecha_inicio: new Date('2025-06-03T08:00:00Z'),
+		fecha_fin: new Date('2025-06-03T12:00:00Z'),
+		fecha_creacion: new Date('2025-09-27T08:00:00Z'),
+		fecha_actualizacion: new Date('2025-09-28T08:00:00Z')
 	},
 	{
 		id: '4',
@@ -132,10 +154,10 @@ export const datos: ActividadFormType[] = [
 		descripcion: 'Definición de objetivos y estrategias para el próximo año',
 		usuario_experto: 'Javier Torres',
 		nombre_area: 'Dirección',
-		fecha_inicio: new Date('2023-10-04T14:00:00Z'),
-		fecha_fin: new Date('2023-10-04T16:00:00Z'),
-		fecha_creacion: new Date('2023-09-28T14:00:00Z'),
-		fecha_actualizacion: new Date('2023-09-29T14:00:00Z')
+		fecha_inicio: new Date('2025-06-04T14:00:00Z'),
+		fecha_fin: new Date('2025-06-04T16:00:00Z'),
+		fecha_creacion: new Date('2025-09-28T14:00:00Z'),
+		fecha_actualizacion: new Date('2025-09-29T14:00:00Z')
 	},
 	{
 		id: '5',
@@ -147,10 +169,10 @@ export const datos: ActividadFormType[] = [
 		descripcion: 'Estudio de tendencias y competidores en el sector',
 		usuario_experto: 'Sofía Pérez',
 		nombre_area: 'Marketing',
-		fecha_inicio: new Date('2023-10-05T11:00:00Z'),
-		fecha_fin: new Date('2023-10-05T13:00:00Z'),
-		fecha_creacion: new Date('2023-09-29T11:00:00Z'),
-		fecha_actualizacion: new Date('2023-09-30T11:00:00Z')
+		fecha_inicio: new Date('2025-06-05T11:00:00Z'),
+		fecha_fin: new Date('2025-06-05T13:00:00Z'),
+		fecha_creacion: new Date('2025-09-29T11:00:00Z'),
+		fecha_actualizacion: new Date('2025-09-30T11:00:00Z')
 	},
 	{
 		id: '6',
@@ -162,10 +184,10 @@ export const datos: ActividadFormType[] = [
 		descripcion: 'Formación en nuevas tecnologías y herramientas',
 		usuario_experto: 'Miguel Ángel Díaz',
 		nombre_area: 'Recursos Humanos',
-		fecha_inicio: new Date('2023-10-06T15:00:00Z'),
-		fecha_fin: new Date('2023-10-06T17:00:00Z'),
-		fecha_creacion: new Date('2023-09-30T15:00:00Z'),
-		fecha_actualizacion: new Date('2023-10-01T15:00:00Z')
+		fecha_inicio: new Date('2025-06-06T15:00:00Z'),
+		fecha_fin: new Date('2025-06-06T17:00:00Z'),
+		fecha_creacion: new Date('2025-09-30T15:00:00Z'),
+		fecha_actualizacion: new Date('2025-06-01T15:00:00Z')
 	},
 	{
 		id: '7',
@@ -178,10 +200,10 @@ export const datos: ActividadFormType[] = [
 			'Adopción de herramientas innovadoras para mejorar la productividad',
 		usuario_experto: 'Isabel Martínez',
 		nombre_area: 'Tecnología',
-		fecha_inicio: new Date('2023-10-07T10:00:00Z'),
-		fecha_fin: new Date('2023-10-07T12:00:00Z'),
-		fecha_creacion: new Date('2023-10-01T10:00:00Z'),
-		fecha_actualizacion: new Date('2023-10-02T10:00:00Z')
+		fecha_inicio: new Date('2025-06-07T10:00:00Z'),
+		fecha_fin: new Date('2025-06-07T12:00:00Z'),
+		fecha_creacion: new Date('2025-06-01T10:00:00Z'),
+		fecha_actualizacion: new Date('2025-06-02T10:00:00Z')
 	},
 	{
 		id: '8',
@@ -193,10 +215,10 @@ export const datos: ActividadFormType[] = [
 		descripcion: 'Evaluación y mejora de los procedimientos operativos',
 		usuario_experto: 'Fernando Gómez',
 		nombre_area: 'Operaciones',
-		fecha_inicio: new Date('2023-10-08T09:00:00Z'),
-		fecha_fin: new Date('2023-10-08T11:00:00Z'),
-		fecha_creacion: new Date('2023-10-02T09:00:00Z'),
-		fecha_actualizacion: new Date('2023-10-03T09:00:00Z')
+		fecha_inicio: new Date('2025-06-08T09:00:00Z'),
+		fecha_fin: new Date('2025-06-08T11:00:00Z'),
+		fecha_creacion: new Date('2025-06-02T09:00:00Z'),
+		fecha_actualizacion: new Date('2025-06-03T09:00:00Z')
 	},
 	{
 		id: '9',
@@ -209,10 +231,10 @@ export const datos: ActividadFormType[] = [
 			'Análisis del rendimiento del equipo y establecimiento de objetivos',
 		usuario_experto: 'Patricia Sánchez',
 		nombre_area: 'Recursos Humanos',
-		fecha_inicio: new Date('2023-10-09T08:00:00Z'),
-		fecha_fin: new Date('2023-10-09T10:00:00Z'),
-		fecha_creacion: new Date('2023-10-03T08:00:00Z'),
-		fecha_actualizacion: new Date('2023-10-04T08:00:00Z')
+		fecha_inicio: new Date('2025-06-09T08:00:00Z'),
+		fecha_fin: new Date('2025-06-09T10:00:00Z'),
+		fecha_creacion: new Date('2025-06-03T08:00:00Z'),
+		fecha_actualizacion: new Date('2025-06-04T08:00:00Z')
 	},
 	{
 		id: '10',
@@ -225,10 +247,10 @@ export const datos: ActividadFormType[] = [
 			'Organización de conferencias y seminarios para el próximo año',
 		usuario_experto: 'Jorge Pérez',
 		nombre_area: 'Eventos',
-		fecha_inicio: new Date('2023-10-10T14:00:00Z'),
-		fecha_fin: new Date('2023-10-10T16:00:00Z'),
-		fecha_creacion: new Date('2023-10-04T14:00:00Z'),
-		fecha_actualizacion: new Date('2023-10-05T14:00:00Z')
+		fecha_inicio: new Date('2025-06-10T14:00:00Z'),
+		fecha_fin: new Date('2025-06-10T16:00:00Z'),
+		fecha_creacion: new Date('2025-06-04T14:00:00Z'),
+		fecha_actualizacion: new Date('2025-06-05T14:00:00Z')
 	},
 	{
 		id: '11',
@@ -240,10 +262,10 @@ export const datos: ActividadFormType[] = [
 		descripcion: 'Revisión de los informes financieros del último trimestre',
 		usuario_experto: 'Ana Gómez',
 		nombre_area: 'Finanzas',
-		fecha_inicio: new Date('2023-10-11T11:00:00Z'),
-		fecha_fin: new Date('2023-10-11T13:00:00Z'),
-		fecha_creacion: new Date('2023-10-05T11:00:00Z'),
-		fecha_actualizacion: new Date('2023-10-06T11:00:00Z')
+		fecha_inicio: new Date('2025-06-11T11:00:00Z'),
+		fecha_fin: new Date('2025-06-11T13:00:00Z'),
+		fecha_creacion: new Date('2025-06-05T11:00:00Z'),
+		fecha_actualizacion: new Date('2025-06-06T11:00:00Z')
 	},
 	{
 		id: '12',
@@ -255,10 +277,10 @@ export const datos: ActividadFormType[] = [
 		descripcion: 'Formación en el uso de software y herramientas recientes',
 		usuario_experto: 'Miguel Ángel Díaz',
 		nombre_area: 'Capacitación',
-		fecha_inicio: new Date('2023-10-12T15:00:00Z'),
-		fecha_fin: new Date('2023-10-12T17:00:00Z'),
-		fecha_creacion: new Date('2023-10-06T15:00:00Z'),
-		fecha_actualizacion: new Date('2023-10-07T15:00:00Z')
+		fecha_inicio: new Date('2025-06-12T15:00:00Z'),
+		fecha_fin: new Date('2025-06-12T17:00:00Z'),
+		fecha_creacion: new Date('2025-06-06T15:00:00Z'),
+		fecha_actualizacion: new Date('2025-06-07T15:00:00Z')
 	},
 	{
 		id: '13',
@@ -271,10 +293,10 @@ export const datos: ActividadFormType[] = [
 			'Adopción de herramientas innovadoras para mejorar la productividad',
 		usuario_experto: 'Isabel Martínez',
 		nombre_area: 'Tecnología',
-		fecha_inicio: new Date('2023-10-13T10:00:00Z'),
-		fecha_fin: new Date('2023-10-13T12:00:00Z'),
-		fecha_creacion: new Date('2023-10-07T10:00:00Z'),
-		fecha_actualizacion: new Date('2023-10-08T10:00:00Z')
+		fecha_inicio: new Date('2025-06-13T10:00:00Z'),
+		fecha_fin: new Date('2025-06-13T12:00:00Z'),
+		fecha_creacion: new Date('2025-06-07T10:00:00Z'),
+		fecha_actualizacion: new Date('2025-06-08T10:00:00Z')
 	},
 	{
 		id: '14',
@@ -286,9 +308,9 @@ export const datos: ActividadFormType[] = [
 		descripcion: 'Evaluación y mejora de los procedimientos operativos',
 		usuario_experto: 'Fernando Gómez',
 		nombre_area: 'Operaciones',
-		fecha_inicio: new Date('2023-10-14T09:00:00Z'),
-		fecha_fin: new Date('2023-10-14T11:00:00Z'),
-		fecha_creacion: new Date('2023-10-08T09:00:00Z'),
-		fecha_actualizacion: new Date('2023-10-09T09:00:00Z')
+		fecha_inicio: new Date('2025-06-14T09:00:00Z'),
+		fecha_fin: new Date('2025-06-14T11:00:00Z'),
+		fecha_creacion: new Date('2025-06-08T09:00:00Z'),
+		fecha_actualizacion: new Date('2025-06-09T09:00:00Z')
 	}
 ]
