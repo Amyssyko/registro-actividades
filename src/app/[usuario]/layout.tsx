@@ -3,15 +3,26 @@ import { ChartAreaInteractive } from '@/components/chart-area-interactive'
 import { SectionCards } from '@/components/section-cards'
 import { SiteHeader } from '@/components/site-header'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import { usuarios } from '@/lib/type'
+import { notFound } from 'next/navigation'
 
 type Params = Promise<{ usuario: string }>
 
-const LayoutUser = ({
-	children
+const LayoutUser = async ({
+	children,
+	params
 }: {
 	children: React.ReactNode
 	params: Params
 }) => {
+	const { usuario } = await params
+
+	const usuarioActual = usuarios.find((usr) => usr.id === usuario)
+
+	if (!usuarioActual) {
+		return notFound()
+	}
+
 	return (
 		<>
 			<SidebarProvider
@@ -21,7 +32,10 @@ const LayoutUser = ({
 						'--header-height': 'calc(var(--spacing) * 12)'
 					} as React.CSSProperties
 				}>
-				<AppSidebar variant='inset' />
+				<AppSidebar
+					usuario={usuarioActual}
+					variant='inset'
+				/>
 				<SidebarInset>
 					<SiteHeader />
 					<div className='flex flex-col flex-1'>

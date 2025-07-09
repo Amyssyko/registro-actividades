@@ -9,9 +9,6 @@ type ActividadFormTypeProps = {
 }
 
 const UsuarioDataTable: React.FC<ActividadFormTypeProps> = ({ data }) => {
-	const count = data.length
-	console.log(count)
-
 	return (
 		<>
 			<DataTable

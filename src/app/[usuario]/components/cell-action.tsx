@@ -23,7 +23,6 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
 	const { refresh, push } = useRouter()
 
 	const pathname = usePathname()
-	console.log(pathname)
 
 	//const { showError, showCopy, showSuccess } = useToast()
 	const { startOpen, stopOpen, isOpen } = useOpen()

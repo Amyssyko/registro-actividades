@@ -14,14 +14,17 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem
 } from '@/components/ui/sidebar'
-import { UsuarioType } from '@/lib/type'
+import { UsuarioFormType } from '@/lib/type'
 import { useRouter } from 'next/navigation'
 
-type SwitcherProps = { usuarios: UsuarioType[]; defaultUsuario: UsuarioType }
+type SwitcherProps = {
+	usuarios: UsuarioFormType[]
+	defaultUsuario: UsuarioFormType
+}
 
 export function UserSwitcher({ usuarios, defaultUsuario }: SwitcherProps) {
 	const [selectedVersion, setSelectedVersion] =
-		React.useState<UsuarioType>(defaultUsuario)
+		React.useState<UsuarioFormType>(defaultUsuario)
 
 	const { push } = useRouter()
 

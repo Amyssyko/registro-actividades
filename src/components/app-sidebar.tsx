@@ -33,7 +33,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem
 } from '@/components/ui/sidebar'
-import { usuarios } from '@/lib/type'
+import { UsuarioFormType, usuarios } from '@/lib/type'
 
 const data = {
 	user: {
@@ -151,8 +151,11 @@ const data = {
 		}
 	]
 }
+type SidebarProps = {
+	usuario: UsuarioFormType
+} & React.ComponentProps<typeof Sidebar>
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ usuario, ...props }: SidebarProps) {
 	return (
 		<Sidebar
 			collapsible='offcanvas'
@@ -161,7 +164,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				<div>
 					<UserSwitcher
 						usuarios={usuarios}
-						defaultUsuario={usuarios[0]}
+						defaultUsuario={usuario}
 					/>
 				</div>
 

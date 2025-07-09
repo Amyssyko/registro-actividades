@@ -1,4 +1,3 @@
-import { AppSidebar } from '@/components/app-sidebar'
 import { ChartAreaInteractive } from '@/components/chart-area-interactive'
 import { DataTable } from '@/components/data-table'
 import { SectionCards } from '@/components/section-cards'
@@ -16,7 +15,7 @@ export default function Page() {
 					'--header-height': 'calc(var(--spacing) * 12)'
 				} as React.CSSProperties
 			}>
-			<AppSidebar variant='inset' />
+			{/* <AppSidebar variant='inset' /> */}
 			<SidebarInset>
 				<SiteHeader />
 				<div className='flex flex-col flex-1'>

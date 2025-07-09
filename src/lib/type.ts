@@ -36,10 +36,11 @@ export enum Frecuencia {
 	SEMESTRAL = 'Semestral'
 }
 
-export type UsuarioType = {
-	id: string
-	nombre_usuario: string
-}
+export const usuarioFormSchema = z.object({
+	id: z.string(),
+	nombre_usuario: z.string().min(1, 'El nombre del usuario es obligatorio')
+})
+export type UsuarioFormType = z.infer<typeof usuarioFormSchema>
 
 export const actividadFormSchema = z.object({
 	id: z.string(),
@@ -81,7 +82,7 @@ export type ActividadType = {
 	fecha_fin: Date
 }
 
-export const usuarios: UsuarioType[] = [
+export const usuarios: UsuarioFormType[] = [
 	{ id: '1', nombre_usuario: 'Juan Pérez' },
 	{ id: '2', nombre_usuario: 'María López' },
 	{ id: '3', nombre_usuario: 'Pedro Martínez' },

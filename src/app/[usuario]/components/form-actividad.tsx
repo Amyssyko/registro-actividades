@@ -47,7 +47,6 @@ import { CalendarIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod/v4'
 
 const areas = [
 	{ value: 'Desarrollo', label: 'Desarrollo' },
@@ -113,11 +112,10 @@ const FormActividad: FC<ActividadFormProps> = ({
 	})
 
 	// 2. Define a submit handler.
-	async function onSubmit(values: z.infer<typeof actividadFormSchema>) {
+	async function onSubmit(values: ActividadFormType) {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
 
-		console.log('Form submitted:', values)
 		// Aquí puedes enviar los datos al servidor o realizar cualquier acción necesaria
 		// Por ejemplo, redirigir a otra página o mostrar un mensaje de éxito
 		await fetch('/api/actividad', {
@@ -129,8 +127,6 @@ const FormActividad: FC<ActividadFormProps> = ({
 		})
 		refresh()
 		push(`/${props.usuario}`)
-
-		console.log(values)
 	}
 
 	return (
