@@ -60,6 +60,59 @@ export const actividadFormSchema = z.object({
 	fecha_actualizacion: z.date().optional()
 })
 
+// crea nuevo tipo solo de los enums: ActividadFormEnums
+export type ActividadFormEnums = {
+	prioridad: Prioridad
+	estado: Estado
+	frecuencia: Frecuencia
+}
+
+export const prioridades: Prioridad[] = [
+	Prioridad.ALTA,
+	Prioridad.MEDIA,
+	Prioridad.BAJA
+]
+export const estados: Estado[] = [
+	Estado['To Do'],
+	Estado['In progress'],
+	Estado['In Review'],
+	Estado['Done'],
+	Estado['Blocked'],
+	Estado['Stand by']
+]
+
+export const frecuencias: Frecuencia[] = [
+	Frecuencia['UNICA'],
+	Frecuencia['DIARIA'],
+	Frecuencia['SEMANAL'],
+	Frecuencia['MENSUAL'],
+	Frecuencia['ANUAL'],
+	Frecuencia['TRIMESTRAL'],
+	Frecuencia['SEMESTRAL']
+]
+export const areas: string[] = [
+	'Desarrollo',
+	'Calidad',
+	'Soporte',
+	'Administración'
+]
+export const usuariosList: string[] = [
+	'Juan Pérez',
+	'María López',
+	'Pedro Martínez',
+	'Lucía Sánchez',
+	'Andrés Gómez',
+	'Clara Ruiz',
+	'Diego Fernández',
+	'Sara López',
+	'David Martínez',
+	'Laura Torres',
+	'Carlos Garces',
+	'Ana Gómez',
+	'Isabel Martínez',
+	'Fernando Gómez'
+]
+
 export const detallesActividadFormSchema = z.object({
 	id: z.string(),
 	nombre_responsable: z.string(),
@@ -93,7 +146,7 @@ export const usuarios: UsuarioFormType[] = [
 	{ id: '8', nombre_usuario: 'Sara López' },
 	{ id: '9', nombre_usuario: 'David Martínez' },
 	{ id: '10', nombre_usuario: 'Laura Torres' },
-	{ id: '11', nombre_usuario: 'Carlos Pilla' },
+	{ id: '11', nombre_usuario: 'Carlos Garces' },
 	{ id: '12', nombre_usuario: 'Ana Gómez' },
 	{ id: '13', nombre_usuario: 'Isabel Martínez' },
 	{ id: '14', nombre_usuario: 'Fernando Gómez' }
@@ -255,7 +308,7 @@ export const datos: ActividadFormType[] = [
 	},
 	{
 		id: '11',
-		nombre_responsable: 'Carlos Pilla',
+		nombre_responsable: 'Carlos Garces',
 		prioridad: Prioridad.MEDIA,
 		estado: Estado['Stand by'],
 		frecuencia: Frecuencia.TRIMESTRAL,

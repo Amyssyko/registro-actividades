@@ -35,9 +35,9 @@ import { Textarea } from '@/components/ui/textarea'
 import {
 	actividadFormSchema,
 	ActividadFormType,
-	Estado,
-	Frecuencia,
-	Prioridad
+	estados,
+	frecuencias,
+	prioridades
 } from '@/lib/type'
 import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -57,30 +57,6 @@ const areas = [
 	{ value: 'Operaciones', label: 'Operaciones' }
 ]
 
-export const prioridad: Prioridad[] = [
-	Prioridad.ALTA,
-	Prioridad.MEDIA,
-	Prioridad.BAJA
-]
-export const estado: Estado[] = [
-	Estado['To Do'],
-	Estado['In progress'],
-	Estado['In Review'],
-	Estado['Done'],
-	Estado['Blocked'],
-	Estado['Stand by']
-]
-
-export const frecuencia: Frecuencia[] = [
-	Frecuencia['UNICA'],
-	Frecuencia['DIARIA'],
-	Frecuencia['SEMANAL'],
-	Frecuencia['MENSUAL'],
-	Frecuencia['ANUAL'],
-	Frecuencia['TRIMESTRAL'],
-	Frecuencia['SEMESTRAL']
-]
-
 type ActividadFormProps = {
 	usuario: string
 	className?: string
@@ -96,23 +72,44 @@ const FormActividad: FC<ActividadFormProps> = ({
 
 	const form = useForm<ActividadFormType>({
 		resolver: zodResolver(actividadFormSchema),
-		defaultValues: initialValues || {
-			id: '',
-			nombre_responsable: '',
-			prioridad: undefined,
-			estado: undefined,
-			frecuencia: undefined,
-			actividad: '',
-			descripcion: '',
-			usuario_experto: '',
-			nombre_area: '',
-			fecha_inicio: undefined,
-			fecha_fin: undefined
-		}
+		defaultValues: initialValues
+			? {
+					id: initialValues.id,
+					actividad: initialValues.actividad,
+					descripcion: initialValues.descripcion,
+					nombre_responsable: initialValues.nombre_responsable,
+					prioridad: initialValues.prioridad,
+					estado: initialValues.estado,
+					frecuencia: initialValues.frecuencia,
+					nombre_area: initialValues.nombre_area,
+					usuario_experto: initialValues.usuario_experto,
+					fecha_inicio: initialValues.fecha_inicio,
+					fecha_fin: initialValues.fecha_fin,
+					fecha_creacion: initialValues.fecha_creacion || new Date(),
+					fecha_actualizacion: initialValues.fecha_actualizacion || new Date()
+			  }
+			: {
+					id: '',
+					nombre_responsable: '',
+					prioridad: undefined,
+					estado: undefined,
+					frecuencia: undefined,
+					actividad: '',
+					descripcion: '',
+					usuario_experto: '',
+					nombre_area: '',
+					fecha_inicio: undefined,
+					fecha_fin: undefined,
+					fecha_creacion: undefined,
+					fecha_actualizacion: undefined
+			  }
 	})
+
+	console.log(Object.keys(form.formState.errors))
 
 	// 2. Define a submit handler.
 	async function onSubmit(values: ActividadFormType) {
+		console.log(values)
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
 
@@ -224,7 +221,7 @@ const FormActividad: FC<ActividadFormProps> = ({
 																<SelectValue placeholder='Seleccionar prioridad' />
 															</SelectTrigger>
 															<SelectContent>
-																{prioridad.map((item) => (
+																{prioridades.map((item) => (
 																	<SelectItem
 																		key={item}
 																		value={item}>
@@ -263,7 +260,7 @@ const FormActividad: FC<ActividadFormProps> = ({
 																<SelectValue placeholder='Seleccionar estado' />
 															</SelectTrigger>
 															<SelectContent>
-																{estado.map((item) => (
+																{estados.map((item) => (
 																	<SelectItem
 																		key={item}
 																		value={item}>
@@ -302,7 +299,7 @@ const FormActividad: FC<ActividadFormProps> = ({
 																<SelectValue placeholder='Seleccionar frecuencia' />
 															</SelectTrigger>
 															<SelectContent>
-																{frecuencia.map((item) => (
+																{frecuencias.map((item) => (
 																	<SelectItem
 																		key={item}
 																		value={item}>
@@ -513,9 +510,10 @@ const FormActividad: FC<ActividadFormProps> = ({
 										/>
 									</fieldset>
 								</div>
-
 								<div>
-									<Button type='submit'>Guardar</Button>
+									<Button type='submit'>
+										{initialValues ? 'Actualizar Actividad' : 'Crear Actividad'}
+									</Button>
 								</div>
 							</form>
 						</Form>

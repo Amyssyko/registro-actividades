@@ -1,9 +1,18 @@
 import { Checkbox } from '@/components/ui/checkbox'
 import { formatHora } from '@/lib/format-date'
-import { ActividadFormType } from '@/lib/type'
+import {
+	ActividadFormType,
+	areas,
+	estados,
+	frecuencias,
+	prioridades,
+	usuariosList
+} from '@/lib/type'
 import { type ColumnDef } from '@tanstack/react-table'
 import CellAction from './cell-action'
 import { DataTableColumnHeader } from './data-table-column-header'
+import { EditableCell } from './editable-cell'
+import { EnumSelect } from './enum-list-edit'
 
 export const columns: ColumnDef<ActividadFormType>[] = [
 	{
@@ -49,7 +58,14 @@ export const columns: ColumnDef<ActividadFormType>[] = [
 					title='Actividad'
 				/>
 			)
-		}
+		},
+		cell: ({ row }) => (
+			<EditableCell
+				value={row.original.actividad}
+				rowId={row.original.id}
+				field='actividad'
+			/>
+		)
 	},
 
 	{
@@ -61,7 +77,14 @@ export const columns: ColumnDef<ActividadFormType>[] = [
 					title='Descripción'
 				/>
 			)
-		}
+		},
+		cell: ({ row }) => (
+			<EditableCell
+				value={row.original.descripcion}
+				rowId={row.original.id}
+				field='descripcion'
+			/>
+		)
 	},
 	{
 		accessorKey: 'frecuencia',
@@ -72,9 +95,35 @@ export const columns: ColumnDef<ActividadFormType>[] = [
 					title='Frecuencia'
 				/>
 			)
-		}
+		},
+		cell: ({ row }) => (
+			<EnumSelect
+				field='frecuencia'
+				rowId={row.original.id}
+				value={row.original.frecuencia}
+				options={frecuencias}
+			/>
+		)
 	},
-
+	{
+		accessorKey: 'prioridad',
+		header: ({ column }) => {
+			return (
+				<DataTableColumnHeader
+					column={column}
+					title='Prioridad'
+				/>
+			)
+		},
+		cell: ({ row }) => (
+			<EnumSelect
+				field='prioridad'
+				rowId={row.original.id}
+				value={row.original.prioridad}
+				options={prioridades}
+			/>
+		)
+	},
 	{
 		accessorKey: 'estado',
 		header: ({ column }) => {
@@ -84,7 +133,15 @@ export const columns: ColumnDef<ActividadFormType>[] = [
 					title='Estado'
 				/>
 			)
-		}
+		},
+		cell: ({ row }) => (
+			<EnumSelect
+				field='estado'
+				rowId={row.original.id}
+				value={row.original.estado}
+				options={estados}
+			/>
+		)
 	},
 
 	{
@@ -96,7 +153,15 @@ export const columns: ColumnDef<ActividadFormType>[] = [
 					title='Nombre Área'
 				/>
 			)
-		}
+		},
+		cell: ({ row }) => (
+			<EnumSelect
+				options={areas}
+				value={row.original.nombre_area}
+				rowId={row.original.id}
+				field='nombre_area'
+			/>
+		)
 	},
 	{
 		accessorKey: 'usuario_experto',
@@ -107,7 +172,15 @@ export const columns: ColumnDef<ActividadFormType>[] = [
 					title='Usuario Experto'
 				/>
 			)
-		}
+		},
+		cell: ({ row }) => (
+			<EnumSelect
+				options={usuariosList}
+				value={row.original.usuario_experto}
+				rowId={row.original.id}
+				field='usuario_experto'
+			/>
+		)
 	},
 	{
 		accessorKey: 'fecha_inicio',
